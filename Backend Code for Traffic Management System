@@ -1,0 +1,147 @@
+#include <iostream>
+#include <climits>
+#include <string>
+using namespace std;
+
+#define MAX 4  // Number of locations in the traffic system
+
+// Structure to hold traffic data
+struct TrafficData {
+    string status;
+    int vehicleCount;
+    string timestamp;
+};
+
+// Traffic data storage (predefined)
+TrafficData trafficData[MAX] = {
+    {"Heavy", 120, "14/12/24 10:45"},  // Hadapsar_KP
+    {"Moderate", 60, "14/12/24 10:30"}, // Kothrud_Pune
+    {"Light", 25, "14/12/24 10:00"}     // VimanNagar_Pune
+};
+
+// Graph Adjacency Matrix (Location Graph)
+int roadMatrix[MAX][MAX] = {
+    {0, 8, 15, 12},
+    {8, 0, 5, 0},
+    {15, 5, 0, 6},
+    {12, 0, 6, 0}
+};
+
+string locations[MAX] = {"Hadapsar", "KP", "Kothrud", "VimanNagar"};
+
+// Function to simulate traffic light scheduling
+void simulateTrafficLightScheduling(string location) {
+    cout << "Traffic Light at " << location << " is Green for 45 seconds." << endl;
+    cout << "Traffic Light at " << location << " is Yellow for 5 seconds." << endl;
+    cout << "Traffic Light at " << location << " is Red for 30 seconds." << endl;
+}
+
+// Function to calculate the shortest path using Dijkstra's Algorithm
+void calculateOptimalRoute(int source, int destination) {
+    int travelTime[MAX];  // Array to store the shortest travel times
+    bool processed[MAX];  // Set of processed intersections
+    int parent[MAX];  // Array to store the optimal path
+
+    for (int i = 0; i < MAX; i++) {
+        travelTime[i] = INT_MAX;
+        processed[i] = false;
+        parent[i] = -1;
+    }
+    travelTime[source] = 0;
+
+    for (int count = 0; count < MAX - 1; count++) {
+        int minTime = INT_MAX, minIndex;
+
+        for (int v = 0; v < MAX; v++) {
+            if (!processed[v] && travelTime[v] <= minTime) {
+                minTime = travelTime[v];
+                minIndex = v;
+            }
+        }
+
+        processed[minIndex] = true;
+
+        for (int v = 0; v < MAX; v++) {
+            if (!processed[v] && roadMatrix[minIndex][v] != 0 && travelTime[minIndex] != INT_MAX &&
+                travelTime[minIndex] + roadMatrix[minIndex][v] < travelTime[v]) {
+                travelTime[v] = travelTime[minIndex] + roadMatrix[minIndex][v];
+                parent[v] = minIndex;
+            }
+        }
+    }
+
+    cout << "\nShortest Distance from " << locations[source] << " to " << locations[destination] << ": " << travelTime[destination] << endl;
+    cout << "Path: ";
+    int idx = destination;
+    while (idx != -1) {
+        cout << locations[idx] << " ";
+        idx = parent[idx];
+    }
+    cout << endl;
+}
+
+int main() {
+    string userChoice;
+
+    while (true) {
+        cout << "\nSelect an option:" << endl;
+        cout << "1. View Traffic Data" << endl;
+        cout << "2. Simulate Traffic Light" << endl;
+        cout << "3. Find Shortest Route" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> userChoice;
+
+        if (userChoice == "1") {
+            string routeKey;
+            cout << "Enter the route (Hadapsar_KP, Kothrud_Pune, VimanNagar_Pune): ";
+            cin >> routeKey;
+
+            if (routeKey == "Hadapsar_KP") {
+                cout << "Traffic Status: " << trafficData[0].status << endl;
+                cout << "Vehicle Count: " << trafficData[0].vehicleCount << endl;
+                cout << "Timestamp: " << trafficData[0].timestamp << endl;
+            } else if (routeKey == "Kothrud_Pune") {
+                cout << "Traffic Status: " << trafficData[1].status << endl;
+                cout << "Vehicle Count: " << trafficData[1].vehicleCount << endl;
+                cout << "Timestamp: " << trafficData[1].timestamp << endl;
+            } else if (routeKey == "VimanNagar_Pune") {
+                cout << "Traffic Status: " << trafficData[2].status << endl;
+                cout << "Vehicle Count: " << trafficData[2].vehicleCount << endl;
+                cout << "Timestamp: " << trafficData[2].timestamp << endl;
+            } else {
+                cout << "Invalid route entered." << endl;
+            }
+        } else if (userChoice == "2") {
+            string userLocation;
+            cout << "Enter traffic light location (Hadapsar, KP, Kothrud, VimanNagar): ";
+            cin >> userLocation;
+            simulateTrafficLightScheduling(userLocation);
+        } else if (userChoice == "3") {
+            string startCity, endCity;
+            cout << "Enter the start location: ";
+            cin >> startCity;
+            cout << "Enter the end location: ";
+            cin >> endCity;
+
+            int startIdx = -1, endIdx = -1;
+            for (int i = 0; i < MAX; i++) {
+                if (locations[i] == startCity) startIdx = i;
+                if (locations[i] == endCity) endIdx = i;
+            }
+
+            if (startIdx != -1 && endIdx != -1) {
+                calculateOptimalRoute(startIdx, endIdx);
+            } else {
+                cout << "Invalid locations entered." << endl;
+            }
+        } else if (userChoice == "4") {
+            cout << "Exiting program." << endl;
+            break;
+        } else {
+            cout << "Invalid choice. Please enter a valid option." << endl;
+        }
+    }
+
+    return 0;
+}
