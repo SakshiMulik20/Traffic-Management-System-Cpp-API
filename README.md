@@ -10,26 +10,30 @@ This C++ program simulates a basic Traffic Management System with the following 
 ## Data Structures Used
 1. Structures (struct)
 The program defines a TrafficData structure to store traffic information such as:
-struct TrafficData {
-    string status;
-    int vehicleCount;
-    string timestamp;
-};
+
+         struct TrafficData {
+            string status;
+            int vehicleCount;
+            string timestamp;
+            };
 This structure is used to store pre-defined traffic conditions for specific routes.
 
 
-2. Arrays ([])
+3. Arrays ([])
 --Traffic Data Storage
-    TrafficData trafficData[MAX] = { ... };
+
+       TrafficData trafficData[MAX] = { ... };
 -Stores traffic conditions for predefined routes.
 
 --Graph Representation int (roadMatrix[MAX][MAX])
+      
         int roadMatrix[MAX][MAX] = { ... };
 -This Adjacency Matrix represents roads connecting different locations.
 -Each element in the matrix denotes the travel time between locations.
 
 
 --Location Names (locations[MAX])
+      
         string locations[MAX] = { ... };
 -Stores the names of different locations in the system.
 
@@ -52,11 +56,16 @@ The system models roads between locations using a graph stored in an adjacency m
 2. Shortest Path Calculation (Dijkstra’s Algorithm)
 The function calculateOptimalRoute() finds the shortest travel time between two locations using Dijkstra’s Algorithm.
      - Steps in Dijkstra's Algorithm:
+       
         1)Initialize distances from the source as infinity (INT_MAX), except for the source itself (0).
-        2)Use a visited array (processed[]) to track processed nodes.
-        3)Pick the minimum distance vertex that is not yet processed.
-        4)Update the shortest paths to all its adjacent nodes.
-       Repeat until all vertices are processed.
+       
+       2)Use a visited array (processed[]) to track processed nodes.
+       
+       3)Pick the minimum distance vertex that is not yet processed.
+       
+       4)Update the shortest paths to all its adjacent nodes.
+       
+       5) Repeat until all vertices are processed.
 
 
 3. User Interaction (Switch-Case via While Loop)
@@ -69,6 +78,7 @@ The function calculateOptimalRoute() finds the shortest travel time between two 
 
 4. Simulation of Traffic Lights
 The function simulateTrafficLightScheduling(location) simulates traffic signals for a given location:
+
         void simulateTrafficLightScheduling(string location) {
             cout << "Traffic Light at " << location << " is Green for 45 seconds." << endl;
             cout << "Traffic Light at " << location << " is Yellow for 5 seconds." << endl;
