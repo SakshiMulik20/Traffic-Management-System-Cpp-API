@@ -1,106 +1,172 @@
-## Traffic Management System - Backend Code (C++)
-Overview
-This C++ program simulates a basic Traffic Management System with the following functionalities:
+## 🚦 Traffic Management System - Backend (C++)
 
-1) View Traffic Data: Shows the status, vehicle count, and timestamp for predefined routes.
-2) Simulate Traffic Lights: Simulates traffic light signals at different locations.
-3) Find the Shortest Route: Uses Dijkstra’s Algorithm to compute the shortest path between locations.
+📌 Overview
+This Traffic Management System is a C++ program that simulates traffic data monitoring, traffic light scheduling, and optimal route calculation using Dijkstra's Algorithm.
+
+🔹 Key Features:
+
+✅ View Traffic Data – Displays real-time traffic status, vehicle count, and timestamps.
+
+✅ Simulate Traffic Lights – Models traffic signal sequences at different locations.
+
+✅ Find Shortest Route – Computes the shortest path between locations using Dijkstra’s Algorithm.
+
+🛠️ Data Structures Used
+
+1️⃣ Structures (struct)
+
+The program uses a TrafficData structure to store real-time traffic information:
+
+          struct TrafficData {
+    string status;
+    int vehicleCount;
+    string timestamp;
+    };
+
+This stores traffic conditions for predefined routes.
+
+2️⃣ Arrays ([])
+
+Used to store traffic data, graph representation, and location names:
+
+Traffic Data Storage:
+
+         TrafficData trafficData[MAX] = { ... };
+
+Graph Representation (Adjacency Matrix):
+
+         int roadMatrix[MAX][MAX] = { ... };
+
+Location Names:
+
+         string locations[MAX] = { ... };
 
 
-## Data Structures Used
-1. Structures (struct)
-The program defines a TrafficData structure to store traffic information such as:
+## 🚀 Techniques Used
 
-         struct TrafficData {
-            string status;
-            int vehicleCount;
-            string timestamp;
-            };
-This structure is used to store pre-defined traffic conditions for specific routes.
+1️⃣ Graph Representation (Adjacency Matrix)
 
-
-3. Arrays ([])
---Traffic Data Storage
-
-       TrafficData trafficData[MAX] = { ... };
--Stores traffic conditions for predefined routes.
-
---Graph Representation int (roadMatrix[MAX][MAX])
-      
-        int roadMatrix[MAX][MAX] = { ... };
--This Adjacency Matrix represents roads connecting different locations.
--Each element in the matrix denotes the travel time between locations.
-
-
---Location Names (locations[MAX])
-      
-        string locations[MAX] = { ... };
--Stores the names of different locations in the system.
-
-
-## Techniques Used
-1. Graph Representation (Adjacency Matrix)
 The system models roads between locations using a graph stored in an adjacency matrix:
 
-        int roadMatrix[MAX][MAX] = {
-            {0, 8, 15, 12},
-            {8, 0, 5, 0},
-            {15, 5, 0, 6},
-            {12, 0, 6, 0}
-        };
+         int roadMatrix[MAX][MAX] = {
+    {0, 8, 15, 12},
+    {8, 0, 5, 0},
+    {15, 5, 0, 6},
+    {12, 0, 6, 0}
+    };
+🔹 Vertices: Locations (Hadapsar, KP, Kothrud, VimanNagar).
 
-    -Vertices: Locations (Hadapsar, KP, Kothrud, VimanNagar).
-    -Edges: Represent travel times between locations.
+🔹 Edges: Represent travel times between locations.
 
+2️⃣ Shortest Path Calculation (Dijkstra’s Algorithm)
 
-2. Shortest Path Calculation (Dijkstra’s Algorithm)
-The function calculateOptimalRoute() finds the shortest travel time between two locations using Dijkstra’s Algorithm.
-     - Steps in Dijkstra's Algorithm:
-       
-        1)Initialize distances from the source as infinity (INT_MAX), except for the source itself (0).
-       
-       2)Use a visited array (processed[]) to track processed nodes.
-       
-       3)Pick the minimum distance vertex that is not yet processed.
-       
-       4)Update the shortest paths to all its adjacent nodes.
-       
-       5) Repeat until all vertices are processed.
+The function calculateOptimalRoute() finds the shortest travel time between locations using Dijkstra’s Algorithm:
 
+✨ Steps in Dijkstra's Algorithm:
 
-3. User Interaction (Switch-Case via While Loop)
-- The program provides a menu-driven interface where the user can:
-    -View traffic data (option 1)
-    -Simulate traffic light signals (option 2)
-    -Find the shortest route (option 3)
-    -Exit the program (option 4)
+1️⃣ Initialize distances as infinity (INT_MAX), except for the source (0).
 
+2️⃣ Use a visited array (processed[]) to track processed nodes.
 
-4. Simulation of Traffic Lights
-The function simulateTrafficLightScheduling(location) simulates traffic signals for a given location:
+3️⃣ Pick the minimum distance vertex that is not yet processed.
 
-        void simulateTrafficLightScheduling(string location) {
-            cout << "Traffic Light at " << location << " is Green for 45 seconds." << endl;
-            cout << "Traffic Light at " << location << " is Yellow for 5 seconds." << endl;
-            cout << "Traffic Light at " << location << " is Red for 30 seconds." << endl;
-        }
-   - This function models real-world traffic light behavior.
+4️⃣ Update the shortest paths to all its adjacent nodes.
+
+5️⃣ Repeat until all vertices are processed.
+
+3️⃣ User Interaction (Menu-Driven Program)
+
+The system provides a menu-driven interface where users can:
+
+[1] View Traffic Data – Displays traffic status for predefined routes.
+
+[2] Simulate Traffic Light – Models real-world traffic signals.
+
+[3] Find Shortest Route – Uses Dijkstra’s Algorithm to compute optimal paths.
+
+[4] Exit – Terminates the program.
 
 
-                Code Flow
-        User selects an option from the menu.
+4️⃣ Traffic Light Simulation
+
+The function simulateTrafficLightScheduling(location) models real-world traffic light behavior:
+
+         void simulateTrafficLightScheduling(string location) {
+    cout << "Traffic Light at " << location << " is Green for 45 seconds." << endl;
+    cout << "Traffic Light at " << location << " is Yellow for 5 seconds." << endl;
+    cout << "Traffic Light at " << location << " is Red for 30 seconds." << endl;
+         }
+
+## 📌 Code Flow
+
+📌 User selects an option from the menu:
+
+✅ Option 1 - View Traffic Data: Displays stored traffic conditions.
+
+✅ Option 2 - Simulate Traffic Light: Shows traffic light sequence.
+
+✅ Option 3 - Find Shortest Route:
+
+User enters start & end locations.
+
+The system calculates shortest route using Dijkstra’s Algorithm.
+
+Outputs travel time & path.
+
+✅ Option 4 - Exit: Terminates the program.
+
+📂 Installation & Usage
+
+🔹 Prerequisites
+
+Ensure you have:
+✔️ C++ Compiler (G++) – Install via sudo apt install g++ (Linux) or MinGW (Windows).
+
+🔹 Run the Program
+
+1️⃣ Clone the Repository:
 
 
-      Option 1 (View Traffic Data): Displays stored traffic information.
+         git clone https://github.com/yourusername/traffic-management-system.git
+         cd traffic-management-system
 
-     Option 2 (Simulate Traffic Light): Shows a predefined traffic light sequence.
+2️⃣ Compile the Code:
 
-     Option 3 (Find Shortest Route):
-        - User enters the start and end locations.
-        -The program finds the shortest route using Dijkstra’s Algorithm.
-        -Outputs the shortest travel time and path.
-        
-        Option 4 (Exit): Terminates the program.
+         g++ traffic_management.cpp -o traffic_system
+
+3️⃣ Run the Program:
+
+         ./traffic_system
+
+## 🎯 Future Enhancements
+🔹 🚀 API Integration – Connect with a frontend using Flask/Node.js.
+
+🔹 📊 Real-Time Traffic Data – Fetch live traffic data from APIs.
+
+🔹 🌍 Google Maps Integration – Visualize routes dynamically.
+
+🤝 Contributing
+
+🚀 Feel free to contribute! Follow these steps:
+
+1️⃣ Fork this repository.
+
+2️⃣ Create a new branch: git checkout -b feature-branch
+
+3️⃣ Commit changes: git commit -m "Added new feature"
+
+4️⃣ Push the branch: git push origin feature-branch
+
+5️⃣ Submit a Pull Request (PR) 🎉
 
 
 
+📧 Contact
+
+💬 Author: Sakshi Mulik
+
+🔗 GitHub: yourusername
+
+📩 Email: sakshimulik20@gmail.com
+
+🔹 Star 🌟 this repo if you find it useful! 🚀
