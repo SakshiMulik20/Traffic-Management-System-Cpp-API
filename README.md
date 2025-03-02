@@ -127,7 +127,7 @@ Ensure you have:
 1️⃣ Clone the Repository:
 
 
-         git clone https://github.com/yourusername/traffic-management-system.git
+         git clone https://github.com/sakshimulik20/traffic-management-system.git
          cd traffic-management-system
 
 2️⃣ Compile the Code:
@@ -165,7 +165,7 @@ Ensure you have:
 
 💬 Author: Sakshi Mulik
 
-🔗 GitHub: yourusername
+🔗 GitHub: sakshimulik20
 
 📩 Email: sakshimulik20@gmail.com
 
